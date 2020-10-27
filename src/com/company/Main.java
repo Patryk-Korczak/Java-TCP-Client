@@ -10,11 +10,12 @@ public class Main {
         String address = myScanner.next();
         System.out.println("Enter port: ");
         int port = myScanner.nextInt();
-        int messagesSent = 0;
         Client client = new Client(address, port);
+        myScanner.nextLine();
         while(client.isConnected){
-            messagesSent++;
-            client.sendMessage("Message number: " + messagesSent);
+            System.out.println("Enter message: ");
+            String message = myScanner.nextLine();
+            client.sendMessage(message);
         }
     }
 

@@ -3,12 +3,13 @@ package com.company;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class Client {
     Socket clientSocket;
     Boolean isConnected = false;
 
-    Client(String address, int port) {
+     public Client(String address, int port) {
         try {
             this.clientSocket = new Socket(address, port);
             this.isConnected = true;
@@ -19,10 +20,11 @@ public class Client {
 
     }
 
-    void sendMessage(String message) {
+   public void sendMessage(String message) {
         try {
             DataOutputStream msgToSend = new DataOutputStream(this.clientSocket.getOutputStream());
-            msgToSend.write(message.getBytes());
+            byte[] messageBuffer = message.getBytes(StandardCharsets.UTF_8);
+            msgToSend.write(messageBuffer);
             DataInputStream msgToReceive = new DataInputStream(this.clientSocket.getInputStream());
             byte[] bytes = new byte[1024];
             int bytesRead = msgToReceive.read(bytes);
@@ -34,7 +36,7 @@ public class Client {
         }
     }
 
-    void Disconnect() {
+    public void Disconnect() {
         try {
             this.clientSocket.close();
             this.isConnected = false;
