@@ -29,7 +29,7 @@ public class Client {
             byte[] bytes = new byte[1024];
             int bytesRead = msgToReceive.read(bytes);
             String messageReceived = new String(bytes, 0, bytesRead);
-            System.out.println("Received from server: " + messageReceived);
+            System.out.println("Received from server: " + messageReceived + " (" + bytesRead + " bytes)");
         } catch(Exception e) {
             System.out.println(e.getMessage());
             Disconnect();
